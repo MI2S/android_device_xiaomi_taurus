@@ -31,13 +31,6 @@
     <!-- Default LED off time for notification LED in milliseconds. -->
     <integer name="config_defaultNotificationLedOff">4500</integer>
 
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
-
-    <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
-    <bool name="config_multiColorBatteryLed">true</bool>
-
-
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
@@ -211,9 +204,6 @@
 
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
-    <!-- reference volume index for music stream to limit headphone volume and display warning -->
-    <integer name="config_safe_media_volume_index">7</integer>
-
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Minimum span needed to begin a touch scaling gesture.
@@ -229,13 +219,6 @@
     <!-- Flag indicating if the speed up audio on mt call code should be executed -->
     <bool name="config_speed_up_audio_on_mt_calls">true</bool>
 
-    <!-- Indicate whether to allow the device to suspend when the screen is off
-         due to the proximity sensor.  This resource should only be set to true
-         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
-         Otherwise, the device may fail to wake out of suspend reliably.
-         The default is false. -->
-    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
-
         <!-- Enable lockscreen translucent decor -->
     <bool name="config_enableLockScreenTranslucentDecor">true</bool>
 
@@ -249,12 +232,5 @@
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
     <bool name="config_cellBroadcastAppLinks">true</bool>
-
-    <!-- Device supports LED flashlight -->
-    <bool name="config_enableTorch">true</bool>
-
-    <!-- Performance profiles -->
-    <string name="config_perf_profile_prop">persist.sys.aries.power_profile</string>
-    <string name="config_perf_profile_default_entry">middle</string>
 
 </resources>

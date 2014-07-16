@@ -18,7 +18,7 @@
 # $(call inherit-product, device/sample/products/backup_overlay.mk)
 
 # Get the long list of APNs
-PRODUCT_COPY_FILES := device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+PRODUCT_COPY_FILES := device/xiaomi/taurus/configs/apns-conf.xml:system/etc/apns-conf.xml
 
 # include additional build utilities
 -include device/xiaomi/taurus/utils.mk
@@ -28,16 +28,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 PRODUCT_NAME := full_taurus
 PRODUCT_DEVICE := taurus
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := MI 2A
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
-## VoiceProc modules                                                                                              
-PRODUCT_PACKAGES += voiceproc_init.img
-PRODUCT_PACKAGES += voiceproc.img
-
-# Wifi
 PRODUCT_PACKAGES += wpa_supplicant_overlay.conf
 PRODUCT_PACKAGES += p2p_supplicant_overlay.conf
 
