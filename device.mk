@@ -48,13 +48,13 @@ PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
     device/xiaomi/taurus/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
-#ifneq ($(BUILD_KERNEL),true)
-#PRODUCT_COPY_FILES += \
-#    device/xiaomi/taurus/kernel/exfat.ko:system/lib/modules/exfat.ko \
-#    device/xiaomi/taurus/kernel/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko \
-#    device/xiaomi/taurus/kernel/wlan.ko:system/lib/modules/wlan.ko \
-#    device/xiaomi/taurus/kernel/adsprpc.ko:system/lib/modules/adsprpc.ko
-#endif
+ifneq ($(BUILD_KERNEL),true)
+PRODUCT_COPY_FILES += \
+    device/xiaomi/taurus/kernel/exfat.ko:system/lib/modules/exfat.ko \
+    device/xiaomi/taurus/kernel/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko \
+    device/xiaomi/taurus/kernel/wlan.ko:system/lib/modules/wlan.ko \
+    device/xiaomi/taurus/kernel/adsprpc.ko:system/lib/modules/adsprpc.ko
+endif
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/configs/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \

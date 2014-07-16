@@ -12,11 +12,11 @@ else
     KERNEL_DEFCONFIG := taurus-perf-usr_defconfig
 endif
 
-#ifneq ($(BUILD_KERNEL),true)
-#    include device/xiaomi/taurus/kernel/AndroidKernel.mk
-#else
-#   include kernel/xiaomi/taurus/AndroidKernel.mk
-#endif
+ifneq ($(BUILD_KERNEL),true)
+    include device/xiaomi/taurus/kernel/AndroidKernel.mk
+else
+    include kernel/xiaomi/taurus/AndroidKernel.mk
+endif
 
 $(INSTALLED_KERNEL_TARGET): $(TARGET_PREBUILT_KERNEL) | $(ACP) $(TARGET_PREBUILT_KERNEL_INCLUDE)
 	$(transform-prebuilt-to-target)

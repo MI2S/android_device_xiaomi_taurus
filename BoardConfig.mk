@@ -16,9 +16,6 @@
 
 TARGET_SPECIFIC_HEADER_PATH := device/xiaomi/taurus/include
 
-TARGET_KERNEL_SOURCE := kernel/xiaomi/aries
-TARGET_KERNEL_CONFIG := taurus-perf-usr_defconfig
-
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 
