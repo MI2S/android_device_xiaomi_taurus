@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The MoKee OpenSource Project
+ * Copyright (C) 2012 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,10 @@
 #define DEVICE_PERMS_H
 
 #define PROPERTY_PERMS_APPEND \
-    { "persist.camera.",  AID_MEDIA,    0 }, \
     { "camera.",          AID_MEDIA,    0 }, \
     { "permanent.radio.", AID_RADIO,    0 }, \
     { "dolby.audio",      AID_MEDIA,    0 }, \
     { "dolby.dm.",        AID_SYSTEM,   0 }, \
-    { "persist.audio",    AID_SYSTEM,   0 },
-
+    { "persist.camera.",  AID_MEDIA,    0 }, 
 #endif /* DEVICE_PERMS_H */
+

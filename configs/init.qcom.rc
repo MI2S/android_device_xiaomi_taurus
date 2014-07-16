@@ -70,10 +70,6 @@ on fs
     chown system system /dev/ramdump_lpass
     chown system system /dev/ramdump_riva
     chown system system /dev/ramdump_smem-dsps
-    chown system system /dev/ramdump_modem_fw
-    chown system system /dev/ramdump_modem_sw
-    chown system system /dev/ramdump_smem-modem
-
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB

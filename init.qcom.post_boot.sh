@@ -94,10 +94,6 @@ case "$target" in
          echo 1 > /sys/module/rpm_resources/enable_low_power/pxo
          echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_dig
          echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_mem
-#         echo 1 > /sys/module/pm_8x60/modes/cpu0/retention/idle_enabled
-#         echo 1 > /sys/module/pm_8x60/modes/cpu1/retention/idle_enabled
-#         echo 1 > /sys/module/pm_8x60/modes/cpu2/retention/idle_enabled
-#         echo 1 > /sys/module/pm_8x60/modes/cpu3/retention/idle_enabled
          echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled
          echo 1 > /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled
          echo 1 > /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled
@@ -111,25 +107,21 @@ case "$target" in
 #         echo 1 > /sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/idle_enabled
 #         echo 1 > /sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/idle_enabled
          echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled
-         echo 0 > /sys/module/msm_thermal/core_control/enabled
-         echo 1 > /sys/devices/system/cpu/cpu1/online
-         echo 1 > /sys/devices/system/cpu/cpu2/online
-         echo 1 > /sys/devices/system/cpu/cpu3/online
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/boost
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-         chown system.system /sys/devices/system/cpu/cpufreq/interactive/input_boost
-         chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/boost
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+	 chown system.system /sys/devices/system/cpu/cpufreq/interactive/input_boost
+	 chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
          chown system.system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
          chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
          echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
@@ -153,37 +145,13 @@ case "$target" in
          chown system.system /sys/devices/system/cpu/cpu3/cpufreq/thermal_cap_freq
          chown system.system /sys/devices/system/cpu/cpu3/cpufreq/sys_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu0/cpufreq/thermal_cap_freq
-         echo 1728000 > /sys/devices/system/cpu/cpu0/cpufreq/sys_cap_freq
+	     echo 1728000 > /sys/devices/system/cpu/cpu0/cpufreq/sys_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu1/cpufreq/thermal_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu1/cpufreq/sys_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu2/cpufreq/thermal_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu2/cpufreq/sys_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu3/cpufreq/thermal_cap_freq
          echo 1728000 > /sys/devices/system/cpu/cpu3/cpufreq/sys_cap_freq
-         chown system.system /dev/cpuctl/apps/cpu.notify_on_migrate
-         chmod 0644 /dev/cpuctl/apps/cpu.notify_on_migrate
-         chown root system /sys/devices/system/cpu/mfreq
-#         echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-#         echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-#         echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-#         echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-#         write 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-#         write 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-#         write 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-#         write 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-#         write 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-#         write 60 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core
-#         write 3 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core
-#         write 918000 > /sys/devices/system/cpu/cpufreq/ondemand/optimal_freq
-#         write 1026000 > /sys/devices/system/cpu/cpufreq/ondemand/sync_freq
-#         write 80 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
-         echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-         echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-         echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-         echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-         echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-         echo 1 > /sys/module/msm_thermal/core_control/enabled
-         echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
          chown root.system /sys/devices/system/cpu/mfreq
          chmod 220 /sys/devices/system/cpu/mfreq
          chown root.system /sys/devices/system/cpu/cpu1/online
@@ -273,9 +241,9 @@ esac
 
 # Post-setup services
 case "$target" in
-#    "msm8660" | "msm8960")
-#        start mpdecision
-#    ;;
+    "msm8660" | "msm8960")
+        start mpdecision
+    ;;
     "msm7627a")
         soc_id=`cat /sys/devices/system/soc/soc0/id`
         case "$soc_id" in
@@ -325,8 +293,3 @@ case "$target" in
         echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
-#fastrpc permission setting
-insmod /system/lib/modules/adsprpc.ko
-chown system.system /dev/adsprpc-smd
-chmod 666 /dev/adsprpc-smd
