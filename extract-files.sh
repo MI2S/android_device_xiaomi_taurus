@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VENDOR=xiaomi
-DEVICE=taurus
+DEVICE=aries
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*

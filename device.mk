@@ -41,7 +41,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_COPY_FILES += \
-    device/xiaomi/aries/libril.so:system/lib/libril.so
+    device/xiaomi/taurus/libril.so:system/lib/libril.so
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
@@ -58,7 +58,8 @@ endif
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/configs/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
-    device/xiaomi/taurus/configs/audio_policy.conf:system/etc/audio_policy.conf
+    device/xiaomi/taurus/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    device/xiaomi/taurus/configs/audio_effects.conf:system/etc/audio_effects.conf
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/thermald_h.conf:system/etc/thermald_h.conf \
@@ -85,7 +86,7 @@ PRODUCT_COPY_FILES += \
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
     device/xiaomi/taurus/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
-    device/xiaomi/taurus/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
+    device/xiaomi/taurus/msm8960-snd-card_Button_Jack.kl:system/usr/keylayout/msm8960-snd-card_Button_Jack.kl \
     device/xiaomi/taurus/cyttsp-i2c.kl:system/usr/keylayout/cyttsp-i2c.kl \
     device/xiaomi/taurus/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/xiaomi/taurus/keypad_8960.kl:system/usr/keylayout/keypad_8960.kl \
@@ -114,7 +115,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
@@ -122,7 +127,7 @@ PRODUCT_COPY_FILES += \
 
 # OpenGL ES 3.0
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=131072
+    ro.opengles.version=196608
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=320
@@ -138,7 +143,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
     af.resampler.quality=255 \
-    mpq.audio.decode=true
+    qcom.hw.aac.encoder=true \
+    lpa.decode=true \
+    tunnel.decode=false \
+    tunnel.audiovideo.decode=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.aries.power_profile=middle
@@ -150,9 +158,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=0
-
-#Upto 3 layers can go through overlays
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable=true
 
 PRODUCT_CHARACTERISTICS := nosdcard
 
@@ -223,17 +228,21 @@ PRODUCT_PACKAGES += \
     libmm-omxcore \
     libstagefrighthw
 
-# Camera wrapper
-PRODUCT_PACKAGES += \
-    camera-wrapper.msm8960
-
 # Light
 PRODUCT_PACKAGES += \
-    lights.taurus
+    lights.msm8960
 
+# NFC Support
 PRODUCT_PACKAGES += \
-    libwfcu
+    libnfc \
+    libnfc_ndef \
+    libnfc_jni \
+    Nfc \
+    Tag \
+    com.android.nfc_extras
 
+PRODUCT_COPY_FILES += \
+    device/xiaomi/taurus/nfc/nfcee_access.xml:system/etc/nfcee_access.xml
 
 # fmradio support
 PRODUCT_PACKAGES += \
@@ -241,8 +250,6 @@ PRODUCT_PACKAGES += \
     libqcomfm_jni \
     FM2 \
     FMRecord
-
-PRODUCT_BOOT_JARS += qcom.fmradio
 
 # transmitter isn't supported
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -252,10 +259,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    com.qc.hardware=true
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    telephony.lteOnCdmaDevice=0
+    telephony.lteOnCdmaDevice=0 \
+    ril.subscription.types=NV,RUIM
 
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
@@ -264,21 +269,30 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
-
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.recordable.rgba8888=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sensors.wl_dis=true
 
-# fuse sdcard
+# Qualcomm random numbers generated
+PRODUCT_PACKAGES += qrngd
+
+# QCOM Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.fuse_sdcard=true \
-    ro.hwui.text_cache_width=2048 \
-    ro.hwui.texture_cache_size=48
+    debug.sf.hw=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=dyn \
+    persist.hwc.mdpcomp.enable=true \
+    debug.mdpcomp.logs=0
+
+# QC Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/libqc-opt.so
+
+# QCOM
+PRODUCT_PROPERTY_OVERRIDES += \
+    com.qc.hardware=true
 
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -297,5 +311,5 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
-# This is the aries-specific audio package
+# This is the taurus-specific audio package
 $(call inherit-product, frameworks/base/data/sounds/AudioPackage10.mk)

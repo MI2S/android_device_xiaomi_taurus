@@ -14,19 +14,28 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := $(cal my-dir)
+
+BOARD_HAVE_XIAOMI_TAURUS := true
 TARGET_SPECIFIC_HEADER_PATH := device/xiaomi/taurus/include
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 
+QCOM_BOARD_PLATFORMS         := msm8960
 TARGET_BOARD_PLATFORM        := msm8960
 TARGET_BOOTLOADER_BOARD_NAME := taurus
 TARGET_BOOTLOADER_NAME       := taurus
 TARGET_BOARD_INFO_FILE       := device/xiaomi/taurus/board-info.txt
 
+# Vendor Init
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := device/xiaomi/taurus/init/init_taurus.c
+
 # Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp  -DQCOM_HARDWARE
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp -DQCOM_HARDWARE
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp -DQCOM_HARDWARE
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp -DQCOM_HARDWARE
 COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
 
 # Architecture
@@ -50,7 +59,7 @@ TARGET_KRAIT_BIONIC_PLDSIZE          := 64
 
 BOARD_KERNEL_BASE      := 0x80200000
 BOARD_KERNEL_PAGESIZE  := 2048
-BOARD_KERNEL_CMDLINE   := console=ttyHSL0,115200,n8 androidboot.hardware=taurus ehci-hcd.park=3 maxcpus=2
+BOARD_KERNEL_CMDLINE   := console=null androidboot.hardware=qcom ehci-hcd.park=3 maxcpus=2 androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS   := --ramdisk_offset 0x02000000
 
 ifneq ($(BUILD_KERNEL),true)
@@ -80,6 +89,8 @@ BOARD_EGL_CFG := device/xiaomi/taurus/configs/egl.cfg
 COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
 QCOM_FM_ENABLED := true
 
+BOARD_EGL_CFG := device/xiaomi/taurus/configs/egl.cfg
+
 TARGET_QCOM_MEDIA_VARIANT   := caf
 TARGET_QCOM_DISPLAY_VARIANT := caf
 TARGET_QCOM_AUDIO_VARIANT   := caf
@@ -95,27 +106,27 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_USES_ION             := true
 USE_OPENGL_RENDERER         := true
 TARGET_USES_C2D_COMPOSITION := true
-COMMON_GLOBAL_CFLAGS        += -DNEW_ION_API
 
 # Audio
 BOARD_USES_ALSA_AUDIO                   := true
 TARGET_USES_QCOM_MM_AUDIO               := true
 TARGET_USES_QCOM_COMPRESSED_AUDIO       := true
-BOARD_HAVE_LOW_LATENCY_AUDIO            := true
 BOARD_AUDIO_EXPECTS_MIN_BUFFERSIZE      := true
 BOARD_USES_SEPERATED_VOICE_SPEAKER      := true
 BOARD_AUDIO_CAF_LEGACY_INPUT_BUFFERSIZE := true
 BOARD_USES_LEGACY_ALSA_AUDIO            := true
-
-# Light
-TARGET_PROVIDES_LIBLIGHT :=true
+TUNNEL_MODE_SUPPORTS_AMRWB              := true
+USE_TUNNEL_MODE                         := true
 
 # GPS
 BOARD_HAVE_NEW_QC_GPS := true
+#The below will be needed if we ever want to build GPS HAL from source
+#TARGET_PROVIDES_GPS_LOC_API := true
+#BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+#TARGET_NO_RPC := true
 
 # Camera
-TARGET_PROVIDES_CAMERA_HAL := true
-COMMON_GLOBAL_CFLAGS       += -DMR0_CAMERA_BLOB -DDISABLE_HW_ID_MATCH_CHECK -DQCOM_BSP_CAMERA_ABI_HACK -DQCOM_BSP
+COMMON_GLOBAL_CFLAGS       += -DMR0_CAMERA_BLOB -DQCOM_BSP
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH                        := true
@@ -152,7 +163,7 @@ BOARD_LIB_DUMPSTATE := libdumpstate.taurus
 -include vendor/xiaomi/taurus/BoardConfigVendor.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/xiaomi/aries/sepolicy
+    device/xiaomi/taurus/sepolicy
 
 BOARD_SEPOLICY_UNION := \
        app.te \
